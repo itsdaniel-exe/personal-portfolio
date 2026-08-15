@@ -6,7 +6,7 @@
 export default function Note({ children, className = '', rotate = -2 }) {
   return (
     <span
-      className={`inline-block font-hand text-sm text-hot ${className}`}
+      className={`inline-block font-hand text-sm text-brand ${className}`}
       style={{ transform: `rotate(${rotate}deg)` }}
     >
       {children}

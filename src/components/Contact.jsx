@@ -24,10 +24,10 @@ export default function Contact() {
   return (
     <section id="contact" className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-16">
       <div className="grid grid-cols-1 gap-3 lg:grid-cols-3">
-        <Module tag="say-hi.txt" className="lg:col-span-2">
+        <Module name="say-hi.txt" className="lg:col-span-2">
           <span className="t-label">Contact</span>
           <h2 className="t-section mt-3 max-w-[12ch]">
-            Say hi<span className="text-hot">.</span>
+            Say hi<span className="text-brand">.</span>
           </h2>
           <p className="mt-4 max-w-prose text-ink/80">
             If you want to talk about any of this, or you&rsquo;re building something and want
@@ -39,7 +39,7 @@ export default function Contact() {
             <Magnetic strength={0.3}>
               <a
                 href={`mailto:${links.email}`}
-                className="pill gap-2 bg-accent px-5 py-3 text-white no-underline transition-colors duration-300 hover:bg-ink"
+                className="pill gap-2 bg-brand px-5 py-3 text-white no-underline transition-colors duration-300 hover:bg-ink"
               >
                 Email me
                 <span aria-hidden="true">&rarr;</span>
@@ -50,7 +50,7 @@ export default function Contact() {
                 href={links.github}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="pill gap-2 border border-rule bg-card px-5 py-3 text-ink no-underline transition-colors duration-300 hover:border-ink"
+                className="pill gap-2 border border-rule bg-frame px-5 py-3 text-ink no-underline transition-colors duration-300 hover:border-ink"
               >
                 GitHub
                 <span aria-hidden="true">&rarr;</span>
@@ -59,7 +59,7 @@ export default function Contact() {
           </div>
         </Module>
 
-        <Module tag="links" delay={0.06}>
+        <Module name="links" delay={0.06}>
           <dl className="space-y-0">
             {CHANNELS.map((c, i) => (
               <div
@@ -89,7 +89,7 @@ export default function Contact() {
                     Download PDF
                   </a>
                 ) : (
-                  <span className="text-sm text-faint">Coming soon</span>
+                  <span className="text-sm text-slate">Coming soon</span>
                 )}
               </dd>
             </div>

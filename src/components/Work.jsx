@@ -2,9 +2,9 @@ import { useMemo, useState } from 'react'
 import { LayoutGroup, motion, useReducedMotion } from 'framer-motion'
 import { projects, unfinished } from '../data/projects'
 import Entry from './Entry'
+import Carousel from './Carousel'
 import Module from './Module'
 
-const MotionDiv = motion.div
 const MotionButton = motion.button
 const MotionSpan = motion.span
 
@@ -30,7 +30,7 @@ export default function Work() {
           <span className="t-label">The work</span>
           <h2 className="t-section mt-3 max-w-[16ch]" aria-live="polite">
             {shown.length} {shown.length === 1 ? 'thing' : 'things'} I&rsquo;ve made
-            <span className="text-hot">.</span>
+            <span className="text-brand">.</span>
           </h2>
         </div>
 
@@ -56,7 +56,7 @@ export default function Work() {
                   whileTap={reduced ? undefined : { scale: 0.96 }}
                   // 44px targets on phones, tighter where there's a pointer.
                   className={`pill relative min-h-11 px-4 transition-colors duration-300 sm:min-h-0 sm:py-2 ${
-                    active ? 'text-white' : 'border border-rule bg-card text-muted hover:text-ink'
+                    active ? 'text-white' : 'border border-rule bg-frame text-muted hover:text-ink'
                   }`}
                 >
                   {active && (
@@ -76,35 +76,32 @@ export default function Work() {
       </div>
 
       {/*
-        No AnimatePresence here on purpose. Its exit handshake never completed
-        under prefers-reduced-motion, so filtering updated the count while every
-        entry stayed on screen. Filtered-out entries now unmount immediately and
-        the survivors reflow via `layout`, which is the part that reads as motion.
+        Draggable rail, like the reference's portfolio carousel — native scroll
+        with snap points, so touch flings and keyboard scrolling keep working,
+        with mouse drag layered on top.
+
+        Note: no AnimatePresence anywhere in this file. Its exit handshake never
+        completed under prefers-reduced-motion, which left every filtered-out
+        entry on screen while the count said otherwise.
       */}
-      <LayoutGroup>
-        <MotionDiv layout className="mt-8 grid grid-cols-1 gap-3 lg:grid-cols-2">
+      <div className="mt-8">
+        <Carousel label="Projects">
           {shown.map((project) => (
-            <MotionDiv
+            <div
               key={project.id}
-              layout
-              initial={reduced ? false : { opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={
-                reduced ? { duration: 0 } : { type: 'spring', stiffness: 300, damping: 34 }
-              }
-              className={project.featured ? 'lg:col-span-2' : ''}
+              className="w-[86vw] shrink-0 snap-start sm:w-[62vw] lg:w-[46rem]"
             >
               <Entry project={project} />
-            </MotionDiv>
+            </div>
           ))}
-        </MotionDiv>
-      </LayoutGroup>
+        </Carousel>
+      </div>
 
       {/* Same ledger, honest status — not a separate confessional. */}
-      <Module tag="dropped.log" className="mt-3">
+      <Module name="dropped.log" className="mt-3">
         <span className="t-label">Unfinished</span>
         <h3 className="t-entry mt-3">
-          Two I started and didn&rsquo;t finish<span className="text-hot">.</span>
+          Two I started and didn&rsquo;t finish<span className="text-brand">.</span>
         </h3>
         <p className="mt-3 max-w-prose text-muted">
           Leaving them here because a page where everything shipped would be a bit suspicious.
@@ -112,7 +109,7 @@ export default function Work() {
 
         <dl className="mt-6 grid gap-3 sm:grid-cols-2">
           {unfinished.map((item) => (
-            <div key={item.id} className="rounded-xl border border-rule bg-raised p-4">
+            <div key={item.id} className="rounded-xl border border-rule bg-grid p-4">
               <dt className="font-display text-lg font-bold text-muted">{item.title}</dt>
               <dd className="mt-1.5 text-sm text-ink/70">{item.body}</dd>
             </div>

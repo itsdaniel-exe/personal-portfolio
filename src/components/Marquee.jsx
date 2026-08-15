@@ -15,7 +15,7 @@ export default function Marquee({ items }) {
           <span
             key={`${item}-${i}`}
             aria-hidden={i >= items.length ? 'true' : undefined}
-            className="pill shrink-0 border border-rule bg-raised px-3.5 py-2 text-muted"
+            className="pill shrink-0 border border-rule bg-grid px-3.5 py-2 text-muted"
           >
             {item}
           </span>

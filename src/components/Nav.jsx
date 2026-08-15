@@ -37,13 +37,13 @@ export default function Nav() {
     <header className="sticky top-8 z-50 px-3 pt-3 sm:px-5">
       <nav
         aria-label="Primary"
-        className="mx-auto flex max-w-6xl items-center justify-between gap-3 rounded-full border border-rule bg-card/90 px-3 py-2 shadow-module backdrop-blur-md sm:px-4"
+        className="mx-auto flex max-w-6xl items-center justify-between gap-3 rounded-full border border-rule bg-frame/90 px-3 py-2 shadow-module backdrop-blur-md sm:px-4"
       >
         <a
           href="#top"
-          className="shrink-0 font-display text-sm font-extrabold tracking-tight text-ink no-underline transition-colors hover:text-accent"
+          className="shrink-0 font-display text-sm font-extrabold tracking-tight text-ink no-underline transition-colors hover:text-brand"
         >
-          Daniel<span className="text-hot">.</span>
+          Daniel<span className="text-brand">.</span>
         </a>
 
         <div className="flex items-center gap-1">
@@ -54,7 +54,7 @@ export default function Nav() {
                   href={`#${s.id}`}
                   aria-current={active === s.id ? 'true' : undefined}
                   className={`pill px-3 py-2 no-underline transition-colors duration-300 ${
-                    active === s.id ? 'bg-raised text-ink' : 'text-muted hover:text-ink'
+                    active === s.id ? 'bg-grid text-ink' : 'text-muted hover:text-ink'
                   }`}
                 >
                   {s.label}
@@ -64,7 +64,7 @@ export default function Nav() {
           </ul>
           <a
             href={`mailto:${links.email}`}
-            className="pill min-h-9 bg-ink px-4 text-white no-underline transition-colors duration-300 hover:bg-accent"
+            className="pill min-h-9 bg-ink px-4 text-white no-underline transition-colors duration-300 hover:bg-brand"
           >
             Say hi
           </a>

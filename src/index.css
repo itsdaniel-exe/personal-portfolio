@@ -3,12 +3,11 @@
 @tailwind utilities;
 
 /*
-  "Workbench" — modules on a warm ground.
+  The page is dressed as an open canvas in a design tool — but the tool it's
+  imitating is the kind of app Daniel actually builds, a task list. Cards behave
+  like selectable frames: dashed outline, corner handles, a dimension callout.
 
-  Content sits in labelled cards rather than a single column, so the page reads
-  as a set of things you can poke at. Ultramarine and hot orange do the shouting;
-  the prose stays in a serif so it still reads like it was written, not shipped.
-
+  Sky sits behind everything and resolves into navy at the footer.
   Light-only on purpose.
 */
 
@@ -20,39 +19,41 @@
   html {
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
+    background: #bfdff6;
   }
 
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
     }
-    /* Kill decorative loops outright, not just the JS-driven motion. */
-    .animate-marquee {
+    .animate-marquee,
+    .animate-drift,
+    .animate-ping {
       animation: none !important;
     }
   }
 
   body {
-    @apply bg-ground font-body text-ink antialiased;
-    font-optical-sizing: auto;
+    @apply font-body text-ink antialiased;
     font-size: 1.0625rem;
-    line-height: 1.65;
+    line-height: 1.6;
+    background: transparent;
   }
 
   ::selection {
-    background: theme('colors.accent');
+    background: theme('colors.tool');
     color: #fff;
   }
 
   :focus-visible {
-    outline: 2px solid theme('colors.accent');
+    outline: 2px solid theme('colors.tool');
     outline-offset: 3px;
     border-radius: 4px;
   }
 }
 
 @layer components {
-  /* --- Type scale ------------------------------------------------------- */
+  /* --- Type ------------------------------------------------------------- */
 
   .t-hero {
     @apply font-display font-extrabold text-ink;
@@ -64,23 +65,22 @@
   }
 
   .t-section {
-    @apply font-display font-bold text-ink;
-    font-size: clamp(1.75rem, 5vw, 3rem);
-    line-height: 1.02;
-    letter-spacing: -0.032em;
+    @apply font-display font-extrabold text-ink;
+    font-size: clamp(1.9rem, 5.2vw, 3.2rem);
+    line-height: 1.0;
+    letter-spacing: -0.035em;
     text-wrap: balance;
   }
 
   .t-entry {
-    @apply font-display font-bold text-ink;
+    @apply font-display font-extrabold text-ink;
     font-size: clamp(1.55rem, 4vw, 2.15rem);
-    line-height: 1.05;
-    letter-spacing: -0.028em;
+    line-height: 1.04;
+    letter-spacing: -0.03em;
   }
 
-  /* Module labels — the filename tags on each card. */
   .t-label {
-    @apply font-mono uppercase text-faint;
+    @apply font-mono uppercase text-slate;
     font-size: 0.6875rem;
     letter-spacing: 0.1em;
     line-height: 1.4;
@@ -92,20 +92,56 @@
     @apply text-muted;
   }
 
-  /* --- Modules ---------------------------------------------------------- */
+  /* --- Frames (the design-tool chrome) ---------------------------------- */
 
-  .module {
-    @apply relative rounded-module border border-rule bg-card shadow-module;
+  .frame {
+    @apply relative rounded-module border border-rule bg-frame shadow-module;
   }
 
-  /* Each card wears its own name, bottom-right, like a layer label. */
-  .module-tag {
-    @apply font-mono lowercase text-faint;
+  /* Frame name tag, sitting above the top-left corner like a layer label. */
+  .frame-name {
+    @apply pointer-events-none absolute -top-[9px] left-3 z-20 font-mono lowercase;
     font-size: 0.625rem;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.04em;
+    color: theme('colors.tool');
+    background: theme('colors.frame');
+    padding: 0 5px;
   }
 
-  /* --- Links and controls ---------------------------------------------- */
+  /* Dashed selection outline + corner handles, revealed on hover/focus. */
+  .frame-select {
+    @apply pointer-events-none absolute inset-0 z-20 rounded-module opacity-0 transition-opacity duration-200;
+    outline: 1.5px dashed theme('colors.tool');
+    outline-offset: 2px;
+  }
+
+  .frame:hover .frame-select,
+  .frame:focus-within .frame-select {
+    opacity: 1;
+  }
+
+  .handle {
+    @apply absolute h-2 w-2 rounded-[2px] border bg-frame;
+    border-color: theme('colors.tool');
+  }
+
+  /* Dimension callout, like a measurement readout under a selected frame. */
+  .frame-dim {
+    @apply pointer-events-none absolute -bottom-[10px] left-1/2 z-20 -translate-x-1/2 whitespace-nowrap font-mono opacity-0 transition-opacity duration-200;
+    font-size: 0.5625rem;
+    letter-spacing: 0.05em;
+    color: #fff;
+    background: theme('colors.tool');
+    padding: 1px 6px;
+    border-radius: 3px;
+  }
+
+  .frame:hover .frame-dim,
+  .frame:focus-within .frame-dim {
+    opacity: 1;
+  }
+
+  /* --- Controls --------------------------------------------------------- */
 
   .link {
     @apply text-ink no-underline transition-colors duration-200;
@@ -114,19 +150,8 @@
   }
 
   .link:hover {
-    @apply text-accent;
-    box-shadow: inset 0 -2px 0 0 theme('colors.accent');
-  }
-
-  .link-accent {
-    @apply font-display font-bold text-accent no-underline;
-    font-size: 0.875rem;
-    box-shadow: inset 0 -1px 0 0 rgba(43, 43, 209, 0.25);
-    transition: box-shadow 0.2s ease;
-  }
-
-  .link-accent:hover {
-    box-shadow: inset 0 -2px 0 0 theme('colors.accent');
+    color: theme('colors.brand');
+    box-shadow: inset 0 -2px 0 0 theme('colors.brand');
   }
 
   .pill {
@@ -135,9 +160,26 @@
     letter-spacing: 0.08em;
   }
 
-  /* Marquee needs its track duplicated in the markup for a seamless loop. */
+  .btn-brand {
+    @apply pill gap-2 px-5 py-3 text-white no-underline transition-colors duration-300;
+    background: theme('colors.brand');
+  }
+
+  .btn-brand:hover {
+    background: theme('colors.brand-deep');
+  }
+
   .marquee-mask {
     mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
     -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+
+  /* Hide scrollbar on the drag rail without losing scrollability. */
+  .no-bar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .no-bar::-webkit-scrollbar {
+    display: none;
   }
 }

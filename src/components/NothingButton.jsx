@@ -36,7 +36,7 @@ export default function NothingButton() {
         animate={reduced ? undefined : { rotate: [0, -3, 3, -2, 0] }}
         key={nudge}
         transition={{ duration: 0.35 }}
-        className="pill min-h-11 border border-rule bg-card px-5 text-ink transition-colors duration-300 hover:border-hot hover:text-hot"
+        className="pill min-h-11 border border-rule bg-frame px-5 text-ink transition-colors duration-300 hover:border-brand hover:text-brand"
       >
         {LINES[i]}
       </MotionButton>

@@ -19,7 +19,7 @@ export default function ScrollProgress() {
   return (
     <MotionDiv
       aria-hidden="true"
-      className="absolute inset-x-0 bottom-0 h-px origin-left bg-accent"
+      className="absolute inset-x-0 bottom-0 h-px origin-left bg-brand"
       style={{ scaleX: reduced ? scrollYProgress : scaleX }}
     />
   )

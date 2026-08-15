@@ -33,7 +33,7 @@ export default function Counter({ to, suffix = '', label }) {
     <div ref={ref}>
       <p className="font-display text-4xl font-extrabold tabular-nums leading-none text-ink sm:text-5xl">
         {n}
-        <span className="text-hot">{suffix}</span>
+        <span className="text-brand">{suffix}</span>
       </p>
       <p className="t-label mt-2">{label}</p>
     </div>

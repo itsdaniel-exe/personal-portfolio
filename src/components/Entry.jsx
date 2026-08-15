@@ -7,8 +7,8 @@ const MotionLi = motion.li
 // Status is real information, so it's encoded in form as well as words.
 const DOT = {
   building: 'bg-live',
-  done: 'bg-accent',
-  shelved: 'bg-faint',
+  done: 'bg-brand',
+  shelved: 'bg-slate',
 }
 
 const reveal = {
@@ -28,7 +28,7 @@ function ArrowLink({ href, children, hot = false }) {
       target="_blank"
       rel="noreferrer noopener"
       className={`pill group/link gap-1.5 px-3.5 py-2 no-underline transition-colors duration-300 ${
-        hot ? 'bg-accent text-white hover:bg-ink' : 'border border-rule bg-raised text-ink hover:border-ink'
+        hot ? 'bg-brand text-white hover:bg-ink' : 'border border-rule bg-grid text-ink hover:border-ink'
       }`}
     >
       {children}
@@ -55,16 +55,16 @@ export default function Entry({ project }) {
       variants={{ show: { transition: { staggerChildren: 0.05 } } }}
       whileHover={reduced ? undefined : { y: -4 }}
       transition={{ duration: 0.3, ease: 'easeOut' }}
-      className="module group p-5 transition-shadow duration-300 hover:shadow-lift sm:p-8"
+      className="frame group p-5 transition-shadow duration-300 hover:shadow-lift sm:p-8"
     >
       {/* Header row: year and kind as chips, so the metadata reads at a glance. */}
       <MotionDiv variants={reveal} className="flex flex-wrap items-center gap-2">
-        <span className="pill border border-rule bg-raised px-2.5 py-1 text-muted">{year}</span>
-        <span className="pill border border-rule bg-raised px-2.5 py-1 text-muted">{kind}</span>
+        <span className="pill border border-rule bg-grid px-2.5 py-1 text-muted">{year}</span>
+        <span className="pill border border-rule bg-grid px-2.5 py-1 text-muted">{kind}</span>
         <span className="ml-auto flex items-center gap-2">
           <span
             aria-hidden="true"
-            className={`inline-block h-1.5 w-1.5 rounded-full ${DOT[status] ?? 'bg-faint'}`}
+            className={`inline-block h-1.5 w-1.5 rounded-full ${DOT[status] ?? 'bg-slate'}`}
           />
           <span className="t-label !text-muted">{statusLabel}</span>
         </span>
@@ -80,7 +80,7 @@ export default function Entry({ project }) {
           aria-hidden="true"
           className={`grid h-6 w-6 shrink-0 place-items-center rounded-md border-2 transition-colors duration-300 ${
             status === 'done'
-              ? 'border-accent bg-accent text-white'
+              ? 'border-brand bg-brand text-white'
               : status === 'building'
                 ? 'border-live text-live'
                 : 'border-rule text-transparent'
@@ -133,7 +133,7 @@ export default function Entry({ project }) {
             <MotionLi
               key={tech}
               variants={chip}
-              className="pill list-none border border-rule bg-card px-2.5 py-1 text-muted transition-colors duration-300 hover:border-accent hover:text-accent"
+              className="pill list-none border border-rule bg-frame px-2.5 py-1 text-muted transition-colors duration-300 hover:border-brand hover:text-brand"
             >
               {tech}
             </MotionLi>
@@ -142,7 +142,7 @@ export default function Entry({ project }) {
       )}
 
       {next?.length > 0 && (
-        <MotionDiv variants={reveal} className="mt-6 rounded-xl bg-raised p-4">
+        <MotionDiv variants={reveal} className="mt-6 rounded-xl bg-grid p-4">
           <span className="t-label">Next up</span>
           <p className="mt-1 text-sm text-muted">{next.join(' · ')}</p>
         </MotionDiv>

@@ -47,7 +47,7 @@ export default function CursorTag({ label = 'You' }) {
       style={{ x: sx, y: sy, opacity: active ? 1 : 0 }}
       className="pointer-events-none fixed left-0 top-0 z-[70] hidden -translate-y-1 translate-x-4 transition-opacity duration-200 [@media(pointer:fine)]:block"
     >
-      <span className="rounded-md rounded-tl-none bg-accent px-2 py-0.5 font-mono text-[10px] font-bold text-white shadow-md">
+      <span className="rounded-md rounded-tl-none bg-brand px-2 py-0.5 font-mono text-[10px] font-bold text-white shadow-md">
         {label}
       </span>
     </MotionDiv>
