@@ -1,15 +1,14 @@
-import Reveal from './Reveal'
+import Module from './Module'
 import Magnetic from './Magnetic'
 import { links } from '../data/projects'
 
 /*
   RESUME SWAP-IN POINT
   --------------------
-  There's no résumé yet, so the button below renders as a disabled "coming soon"
-  state rather than a dead link. When the real file exists:
+  There's no résumé yet, so the button renders as a disabled "coming soon" state
+  rather than a dead link. When the real file exists:
     1. drop it at  public/resume.pdf
     2. flip RESUME_READY to true
-  Nothing else needs changing.
 */
 const RESUME_READY = false
 const RESUME_URL = '/resume.pdf'
@@ -23,61 +22,79 @@ const CHANNELS = [
 
 export default function Contact() {
   return (
-    <section id="contact" className="mx-auto max-w-5xl px-5 py-16 sm:px-8 sm:py-24">
-      <div className="grid gap-x-10 gap-y-6 md:grid-cols-[9rem_minmax(0,1fr)]">
-        <Reveal>
-          <h2 className="t-label md:pt-3">Contact</h2>
-        </Reveal>
+    <section id="contact" className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-16">
+      <div className="grid grid-cols-1 gap-3 lg:grid-cols-3">
+        <Module tag="say-hi.txt" className="lg:col-span-2">
+          <span className="t-label">Contact</span>
+          <h2 className="t-section mt-3 max-w-[12ch]">
+            Say hi<span className="text-hot">.</span>
+          </h2>
+          <p className="mt-4 max-w-prose text-ink/80">
+            If you want to talk about any of this, or you&rsquo;re building something and want
+            another pair of hands on it, email is easiest. I&rsquo;m putting new things on GitHub
+            fairly often.
+          </p>
 
-        <Reveal delay={0.05}>
-          <div className="max-w-prose">
-            <p className="t-section">Say hi.</p>
-            <p className="mt-4 text-ink/85">
-              If you want to talk about any of this, or you&rsquo;re building something and want
-              another pair of hands on it, email is easiest. I&rsquo;m putting new things on GitHub
-              fairly often.
-            </p>
+          <div className="mt-7 flex flex-wrap gap-2">
+            <Magnetic strength={0.3}>
+              <a
+                href={`mailto:${links.email}`}
+                className="pill gap-2 bg-accent px-5 py-3 text-white no-underline transition-colors duration-300 hover:bg-ink"
+              >
+                Email me
+                <span aria-hidden="true">&rarr;</span>
+              </a>
+            </Magnetic>
+            <Magnetic strength={0.3}>
+              <a
+                href={links.github}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="pill gap-2 border border-rule bg-card px-5 py-3 text-ink no-underline transition-colors duration-300 hover:border-ink"
+              >
+                GitHub
+                <span aria-hidden="true">&rarr;</span>
+              </a>
+            </Magnetic>
+          </div>
+        </Module>
 
-            <dl className="mt-10 space-y-0">
-              {CHANNELS.map((c) => (
-                <div
-                  key={c.label}
-                  className="rule-top flex flex-wrap items-baseline gap-x-6 gap-y-1 py-3.5"
-                >
-                  <dt className="t-label w-20 shrink-0">{c.label}</dt>
-                  <dd>
-                    <Magnetic strength={0.28}>
-                      <a
-                        href={c.href}
-                        className="link"
-                        {...(c.external
-                          ? { target: '_blank', rel: 'noreferrer noopener' }
-                          : {})}
-                      >
-                        {c.text}
-                      </a>
-                    </Magnetic>
-                  </dd>
-                </div>
-              ))}
-
-              <div className="rule-top flex flex-wrap items-baseline gap-x-6 gap-y-1 py-3.5">
-                <dt className="t-label w-20 shrink-0">Résumé</dt>
-                <dd>
-                  {RESUME_READY ? (
-                    <a href={RESUME_URL} className="link" download>
-                      Download PDF
-                    </a>
-                  ) : (
-                    <span className="text-faint">
-                      Coming soon &mdash; I haven&rsquo;t written it yet.
-                    </span>
-                  )}
+        <Module tag="links" delay={0.06}>
+          <dl className="space-y-0">
+            {CHANNELS.map((c, i) => (
+              <div
+                key={c.label}
+                className={`flex flex-wrap items-baseline gap-x-4 gap-y-1 py-3 ${
+                  i > 0 ? 'border-t border-rule' : ''
+                }`}
+              >
+                <dt className="t-label w-16 shrink-0">{c.label}</dt>
+                <dd className="min-w-0 flex-1 truncate">
+                  <a
+                    href={c.href}
+                    className="link text-sm"
+                    {...(c.external ? { target: '_blank', rel: 'noreferrer noopener' } : {})}
+                  >
+                    {c.text}
+                  </a>
                 </dd>
               </div>
-            </dl>
-          </div>
-        </Reveal>
+            ))}
+
+            <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 border-t border-rule py-3">
+              <dt className="t-label w-16 shrink-0">CV</dt>
+              <dd className="min-w-0 flex-1">
+                {RESUME_READY ? (
+                  <a href={RESUME_URL} className="link text-sm" download>
+                    Download PDF
+                  </a>
+                ) : (
+                  <span className="text-sm text-faint">Coming soon</span>
+                )}
+              </dd>
+            </div>
+          </dl>
+        </Module>
       </div>
     </section>
   )

@@ -3,9 +3,13 @@
 @tailwind utilities;
 
 /*
-  "Ledger" — a single committed visual world: pale green-grey paper, forest-black
-  ink, one ultramarine accent. Deliberately light-only. Every colour is painted
-  explicitly so the page never borrows a host background.
+  "Workbench" — modules on a warm ground.
+
+  Content sits in labelled cards rather than a single column, so the page reads
+  as a set of things you can poke at. Ultramarine and hot orange do the shouting;
+  the prose stays in a serif so it still reads like it was written, not shipped.
+
+  Light-only on purpose.
 */
 
 @layer base {
@@ -22,10 +26,14 @@
     html {
       scroll-behavior: auto;
     }
+    /* Kill decorative loops outright, not just the JS-driven motion. */
+    .animate-marquee {
+      animation: none !important;
+    }
   }
 
   body {
-    @apply bg-paper text-ink font-body antialiased;
+    @apply bg-ground font-body text-ink antialiased;
     font-optical-sizing: auto;
     font-size: 1.0625rem;
     line-height: 1.65;
@@ -33,14 +41,13 @@
 
   ::selection {
     background: theme('colors.accent');
-    color: theme('colors.raised');
+    color: #fff;
   }
 
-  /* Keyboard focus stays visible everywhere, and reads as part of the palette. */
   :focus-visible {
     outline: 2px solid theme('colors.accent');
     outline-offset: 3px;
-    border-radius: 1px;
+    border-radius: 4px;
   }
 }
 
@@ -48,46 +55,58 @@
   /* --- Type scale ------------------------------------------------------- */
 
   .t-hero {
-    @apply font-display font-medium text-ink;
-    font-size: clamp(2.25rem, 7.5vw, 4.75rem);
-    line-height: 1.02;
-    letter-spacing: -0.033em;
-    font-variation-settings: 'wdth' 92;
+    @apply font-display font-extrabold text-ink;
+    font-size: clamp(2.6rem, 9vw, 6.5rem);
+    line-height: 0.94;
+    letter-spacing: -0.04em;
+    font-variation-settings: 'wdth' 90;
     text-wrap: balance;
   }
 
   .t-section {
-    @apply font-display font-medium text-ink;
-    font-size: clamp(1.5rem, 3.6vw, 2rem);
-    line-height: 1.1;
-    letter-spacing: -0.022em;
+    @apply font-display font-bold text-ink;
+    font-size: clamp(1.75rem, 5vw, 3rem);
+    line-height: 1.02;
+    letter-spacing: -0.032em;
     text-wrap: balance;
   }
 
   .t-entry {
-    @apply font-display font-semibold text-ink;
-    font-size: clamp(1.6rem, 4.6vw, 2.35rem);
+    @apply font-display font-bold text-ink;
+    font-size: clamp(1.55rem, 4vw, 2.15rem);
     line-height: 1.05;
     letter-spacing: -0.028em;
   }
 
-  /* Margin metadata: small, tracked, quiet. The ledger's utility voice. */
+  /* Module labels — the filename tags on each card. */
   .t-label {
-    @apply font-display font-semibold uppercase text-faint;
+    @apply font-mono uppercase text-faint;
     font-size: 0.6875rem;
-    letter-spacing: 0.13em;
+    letter-spacing: 0.1em;
     line-height: 1.4;
   }
 
   .t-lede {
-    font-size: clamp(1.125rem, 2.2vw, 1.3125rem);
-    line-height: 1.55;
+    font-size: clamp(1.125rem, 2.2vw, 1.375rem);
+    line-height: 1.5;
     @apply text-muted;
   }
 
-  /* --- Links ------------------------------------------------------------ */
+  /* --- Modules ---------------------------------------------------------- */
 
-  /* Underline sits low and thin, then thickens into the accent on hover. */
+  .module {
+    @apply relative rounded-module border border-rule bg-card shadow-module;
+  }
+
+  /* Each card wears its own name, bottom-right, like a layer label. */
+  .module-tag {
+    @apply font-mono lowercase text-faint;
+    font-size: 0.625rem;
+    letter-spacing: 0.06em;
+  }
+
+  /* --- Links and controls ---------------------------------------------- */
+
   .link {
     @apply text-ink no-underline transition-colors duration-200;
     box-shadow: inset 0 -1px 0 0 theme('colors.rule');
@@ -100,10 +119,9 @@
   }
 
   .link-accent {
-    @apply font-display font-semibold text-accent no-underline;
+    @apply font-display font-bold text-accent no-underline;
     font-size: 0.875rem;
-    letter-spacing: -0.005em;
-    box-shadow: inset 0 -1px 0 0 theme('colors.wash');
+    box-shadow: inset 0 -1px 0 0 rgba(43, 43, 209, 0.25);
     transition: box-shadow 0.2s ease;
   }
 
@@ -111,9 +129,15 @@
     box-shadow: inset 0 -2px 0 0 theme('colors.accent');
   }
 
-  /* --- Rules ------------------------------------------------------------ */
+  .pill {
+    @apply inline-flex items-center rounded-full font-display font-bold uppercase;
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+  }
 
-  .rule-top {
-    border-top: 1px solid theme('colors.rule');
+  /* Marquee needs its track duplicated in the markup for a seamless loop. */
+  .marquee-mask {
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
   }
 }

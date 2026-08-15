@@ -8,13 +8,13 @@ import Footer from './components/Footer'
 
 export default function App() {
   return (
-    <div className="relative min-h-screen bg-paper">
+    <div className="relative min-h-screen bg-ground">
       {/* Grain sits above the paper fill but below every bit of content. */}
       <Grain />
 
       <a
         href="#work"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-5 focus:top-4 focus:z-[60] focus:bg-raised focus:px-3 focus:py-2 focus:font-display focus:text-sm"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-5 focus:top-4 focus:z-[60] focus:bg-card focus:px-3 focus:py-2 focus:font-display focus:text-sm"
       >
         Skip to work
       </a>

@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { LayoutGroup, motion, useReducedMotion } from 'framer-motion'
 import { projects, unfinished } from '../data/projects'
 import Entry from './Entry'
-import Reveal from './Reveal'
+import Module from './Module'
 
 const MotionDiv = motion.div
 const MotionButton = motion.button
@@ -12,7 +12,7 @@ export default function Work() {
   const [filter, setFilter] = useState('All')
   const reduced = useReducedMotion()
 
-  // Filters come from the data, so adding a project with a new group just works.
+  // Filters come from the data, so a new project with a new group just works.
   const groups = useMemo(
     () => ['All', ...Array.from(new Set(projects.map((p) => p.group).filter(Boolean)))],
     []
@@ -24,82 +24,75 @@ export default function Work() {
   )
 
   return (
-    <section id="work" className="mx-auto max-w-5xl px-5 sm:px-8">
-      <Reveal>
-        <div className="grid gap-x-10 gap-y-4 pb-4 md:grid-cols-[9rem_minmax(0,1fr)]">
-          <h2 className="t-label md:pt-2">Work</h2>
-
-          <div>
-            <p className="t-section max-w-prose" aria-live="polite">
-              {shown.length} {shown.length === 1 ? 'thing' : 'things'} I&rsquo;ve made
-              {filter === 'All' ? ', roughly newest first.' : `, filtered to ${filter.toLowerCase()}.`}
-            </p>
-
-            {/*
-              Filtering by kind. With seven entries this is as much about making
-              the list feel handleable as about search — the count updates and
-              the entries reflow rather than blinking out and back.
-            */}
-            <LayoutGroup>
-              <div role="group" aria-label="Filter work by kind" className="mt-6 flex flex-wrap gap-2">
-                {groups.map((g) => {
-                  const active = g === filter
-                  return (
-                    <MotionButton
-                      key={g}
-                      type="button"
-                      onClick={() => setFilter(g)}
-                      aria-pressed={active}
-                      whileTap={reduced ? undefined : { scale: 0.96 }}
-                      // min-h-11 (44px) so these are comfortably tappable on a
-                      // phone, which is where most people open this. Tightened
-                      // on pointer devices where 44px reads as oversized.
-                      className={`relative inline-flex min-h-11 items-center rounded-full px-4 font-display text-xs font-semibold uppercase tracking-[0.1em] transition-colors duration-300 sm:min-h-0 sm:px-3.5 sm:py-1.5 ${
-                        active ? 'text-raised' : 'text-muted hover:text-ink'
-                      }`}
-                    >
-                      {/* The pill slides between options instead of teleporting. */}
-                      {active && (
-                        <MotionSpan
-                          layoutId="filter-pill"
-                          transition={{ type: 'spring', stiffness: 380, damping: 32 }}
-                          aria-hidden="true"
-                          className="absolute inset-0 rounded-full bg-accent"
-                        />
-                      )}
-                      <span className="relative z-10">{g}</span>
-                    </MotionButton>
-                  )
-                })}
-              </div>
-            </LayoutGroup>
-          </div>
+    <section id="work" className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-16">
+      <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-5">
+        <div>
+          <span className="t-label">The work</span>
+          <h2 className="t-section mt-3 max-w-[16ch]" aria-live="polite">
+            {shown.length} {shown.length === 1 ? 'thing' : 'things'} I&rsquo;ve made
+            <span className="text-hot">.</span>
+          </h2>
         </div>
-      </Reveal>
+
+        {/*
+          Filter by kind. Seven entries doesn't strictly need search — this is
+          about making the set feel handleable and giving the page something to
+          actually do.
+        */}
+        <LayoutGroup>
+          <div
+            role="group"
+            aria-label="Filter work by kind"
+            className="flex flex-wrap gap-2"
+          >
+            {groups.map((g) => {
+              const active = g === filter
+              return (
+                <MotionButton
+                  key={g}
+                  type="button"
+                  onClick={() => setFilter(g)}
+                  aria-pressed={active}
+                  whileTap={reduced ? undefined : { scale: 0.96 }}
+                  // 44px targets on phones, tighter where there's a pointer.
+                  className={`pill relative min-h-11 px-4 transition-colors duration-300 sm:min-h-0 sm:py-2 ${
+                    active ? 'text-white' : 'border border-rule bg-card text-muted hover:text-ink'
+                  }`}
+                >
+                  {active && (
+                    <MotionSpan
+                      layoutId="filter-pill"
+                      transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                      aria-hidden="true"
+                      className="absolute inset-0 rounded-full bg-ink"
+                    />
+                  )}
+                  <span className="relative z-10">{g}</span>
+                </MotionButton>
+              )
+            })}
+          </div>
+        </LayoutGroup>
+      </div>
 
       {/*
-        Deliberately no AnimatePresence here.
-
-        Exit animations on a filtered list mean AnimatePresence has to decide when
-        each removed child has finished animating before unmounting it. Under
-        `prefers-reduced-motion` that handshake never completed, so filtering
-        updated the count and the pressed states while every entry stayed on
-        screen — a correctness bug traded for a fade.
-
-        Filtered-out entries now unmount immediately and the survivors reflow via
-        `layout`, which is the part that actually reads as motion anyway.
+        No AnimatePresence here on purpose. Its exit handshake never completed
+        under prefers-reduced-motion, so filtering updated the count while every
+        entry stayed on screen. Filtered-out entries now unmount immediately and
+        the survivors reflow via `layout`, which is the part that reads as motion.
       */}
       <LayoutGroup>
-        <MotionDiv layout>
+        <MotionDiv layout className="mt-8 grid grid-cols-1 gap-3 lg:grid-cols-2">
           {shown.map((project) => (
             <MotionDiv
               key={project.id}
               layout
-              initial={reduced ? false : { opacity: 0, y: 8 }}
+              initial={reduced ? false : { opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={
                 reduced ? { duration: 0 } : { type: 'spring', stiffness: 300, damping: 34 }
               }
+              className={project.featured ? 'lg:col-span-2' : ''}
             >
               <Entry project={project} />
             </MotionDiv>
@@ -107,28 +100,25 @@ export default function Work() {
         </MotionDiv>
       </LayoutGroup>
 
-      {/* Same ledger, honest statuses — not a separate confessional. */}
-      <Reveal as="section" className="rule-top py-10 sm:py-14">
-        <div className="grid gap-x-10 gap-y-6 md:grid-cols-[9rem_minmax(0,1fr)]">
-          <h2 className="t-label md:pt-2">Unfinished</h2>
+      {/* Same ledger, honest status — not a separate confessional. */}
+      <Module tag="dropped.log" className="mt-3">
+        <span className="t-label">Unfinished</span>
+        <h3 className="t-entry mt-3">
+          Two I started and didn&rsquo;t finish<span className="text-hot">.</span>
+        </h3>
+        <p className="mt-3 max-w-prose text-muted">
+          Leaving them here because a page where everything shipped would be a bit suspicious.
+        </p>
 
-          <div className="max-w-prose">
-            <p className="t-section">Two I started and didn&rsquo;t finish.</p>
-            <p className="mt-4 text-muted">
-              Leaving them here because a page where everything shipped would be a bit suspicious.
-            </p>
-
-            <dl className="mt-8 space-y-6">
-              {unfinished.map((item) => (
-                <div key={item.id} className="rule-top pt-5">
-                  <dt className="font-display text-lg font-semibold text-muted">{item.title}</dt>
-                  <dd className="mt-1.5 text-ink/70">{item.body}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        </div>
-      </Reveal>
+        <dl className="mt-6 grid gap-3 sm:grid-cols-2">
+          {unfinished.map((item) => (
+            <div key={item.id} className="rounded-xl border border-rule bg-raised p-4">
+              <dt className="font-display text-lg font-bold text-muted">{item.title}</dt>
+              <dd className="mt-1.5 text-sm text-ink/70">{item.body}</dd>
+            </div>
+          ))}
+        </dl>
+      </Module>
     </section>
   )
 }

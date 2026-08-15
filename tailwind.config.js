@@ -2,27 +2,50 @@
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    // "Ledger" palette. Pale green-grey paper, forest-black ink, one ultramarine
-    // accent. Neutrals are biased toward the accent's cool side so nothing reads
-    // as a default grey.
     extend: {
+      /*
+        "Workbench" palette.
+
+        Warm off-white ground so white module cards lift off it, near-black ink,
+        and a complementary pair: ultramarine (carried over — it's his) against a
+        hot orange. Two accents is what gives a bento layout enough voltage to
+        stay interesting across a long scroll; one accent goes flat.
+      */
       colors: {
-        paper: '#E9EAE3',
-        raised: '#F3F4EE',
-        ink: '#161A14',
-        muted: '#5B6156',
-        faint: '#8A9084',
-        rule: '#CBCEC2',
+        ground: '#EBE9E2',
+        card: '#FFFFFF',
+        raised: '#F5F4EF',
+        ink: '#14171A',
+        muted: '#5C6169',
+        faint: '#8B9099',
+        rule: '#DCD9CF',
         accent: '#2B2BD1',
-        wash: '#DEDEF6',
-        live: '#2E7D52',
+        hot: '#FF5B2E',
+        live: '#12A150',
       },
       fontFamily: {
         display: ['"Bricolage Grotesque"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        body: ['Newsreader', 'Georgia', 'Times New Roman', 'serif'],
+        body: ['Newsreader', 'Georgia', 'serif'],
+        mono: ['"Space Mono"', 'ui-monospace', 'monospace'],
       },
       maxWidth: {
         prose: '34rem',
+      },
+      borderRadius: {
+        module: '20px',
+      },
+      boxShadow: {
+        module: '0 1px 2px rgba(20,23,26,0.04), 0 8px 24px -12px rgba(20,23,26,0.12)',
+        lift: '0 2px 4px rgba(20,23,26,0.06), 0 18px 40px -16px rgba(20,23,26,0.22)',
+      },
+      keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
+      },
+      animation: {
+        marquee: 'marquee 32s linear infinite',
       },
     },
   },
