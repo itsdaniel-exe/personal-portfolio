@@ -44,7 +44,8 @@ export default function Module({ name, children, className = '', tilt = false, d
       viewport={{ once: true, margin: '0px 0px -8% 0px' }}
       transition={{ duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] }}
       whileHover={tilt && !reduced ? { y: -4 } : undefined}
-      className={`frame group p-5 sm:p-7 ${tilt ? 'transition-shadow duration-300 hover:shadow-lift' : ''} ${className}`}
+      // min-w-0 so a wide child (a marquee track) can't stretch the grid track.
+      className={`frame group min-w-0 p-5 sm:p-7 ${tilt ? 'transition-shadow duration-300 hover:shadow-lift' : ''} ${className}`}
     >
       {name && <span className="frame-name">{name}</span>}
 

@@ -9,7 +9,13 @@ export default function Marquee({ items }) {
   const track = [...items, ...items]
 
   return (
-    <div className="marquee-mask overflow-hidden">
+    /*
+      w-full + min-w-0 matter here: the track below is `w-max`, and without an
+      explicit width the max-content size propagates up through any grid or flex
+      ancestor (they default to min-width:auto), stretching the whole page.
+      overflow-hidden clips it visually but does not stop that contribution.
+    */
+    <div className="marquee-mask w-full min-w-0 overflow-hidden">
       <div className="flex w-max animate-marquee gap-3 will-change-transform">
         {track.map((item, i) => (
           <span

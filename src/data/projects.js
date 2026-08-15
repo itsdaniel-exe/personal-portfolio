@@ -186,3 +186,43 @@ export const links = {
   remmate: REMMATE_LIVE ? REMMATE_URL : REMMATE_REPO,
   remmateLabel: REMMATE_LIVE ? 'remmate.io' : 'Source — domain coming soon',
 }
+
+/*
+  Skills, grouped by what they're actually for. Every entry below appears in at
+  least one project's `stack` above — this is an inventory of what's been used,
+  not a wishlist.
+*/
+export const skillGroups = [
+  {
+    label: 'Frontend',
+    items: ['React', 'TypeScript', 'Vite', 'Tailwind', 'Three.js', 'Framer Motion'],
+  },
+  {
+    label: 'Backend & APIs',
+    items: ['Node.js', 'Express', 'Hono', 'FastAPI', 'Cloudflare Workers'],
+  },
+  {
+    label: 'Data & Auth',
+    items: ['Firestore', 'Supabase', 'D1', 'PostgreSQL', 'Firebase Auth'],
+  },
+  {
+    label: 'AI & ML',
+    items: ['Gemini 2.5 Flash', 'YOLOv8', 'ONNX Runtime', 'Python'],
+  },
+  {
+    label: 'Platform',
+    items: ['Electron', 'Manifest V3', 'ESP32', 'Arduino', 'PWA'],
+  },
+]
+
+/*
+  Trajectory — one line per year. Derived from the projects above rather than
+  invented job titles; these were college projects and side builds, not roles.
+*/
+export const trajectory = [
+  { year: '2026', what: 'Sentinel AI', note: 'Final year project, in progress' },
+  { year: '2025', what: 'ZenSleep · Astrogator', note: 'Hardware + a NASA hackathon' },
+  { year: '2025', what: 'Remmate', note: 'Started the app I actually use' },
+  { year: '2024', what: 'Aether Logger', note: 'Third year — proctoring extension' },
+  { year: '2023', what: 'BloodLink', note: 'Second year — donor matching' },
+]

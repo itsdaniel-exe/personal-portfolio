@@ -3,6 +3,7 @@ import { links } from '../data/projects'
 
 const SECTIONS = [
   { id: 'work', label: 'Work' },
+  { id: 'skills', label: 'Stack' },
   { id: 'about', label: 'About' },
   { id: 'contact', label: 'Contact' },
 ]
