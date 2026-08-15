@@ -32,6 +32,7 @@ export const projects = [
     status: 'building',
     statusLabel: 'In active development',
     kind: 'Product',
+    group: 'Product',
     live: REMMATE_LIVE ? REMMATE_URL : null,
     repo: REMMATE_REPO,
     /*
@@ -39,9 +40,8 @@ export const projects = [
       full-size master in brand/remmate-logo.png (which has ~2/3 transparent
       padding and weighs 221 KB — far too heavy to paint a 34px mark).
 
-      NOTE (Daniel): the master is still the OLD blue/purple logo. Drop the
-      current cyan/magenta artwork in as brand/remmate-logo.png, then
-      regenerate the mark — see "Updating the Remmate mark" in the README.
+      To change the artwork: replace brand/remmate-logo.png and run
+      `python scripts/make-mark.py`. See the README.
     */
     logo: '/remmate-mark.png',
     featured: true,
@@ -70,6 +70,7 @@ export const projects = [
     status: 'building',
     statusLabel: 'In progress',
     kind: 'College project',
+    group: 'College',
     live: null,
     repo: null,
     body: [
@@ -84,15 +85,17 @@ export const projects = [
     title: 'ZenSleep',
     year: '2025',
     status: 'building',
-    statusLabel: 'Built for YUKTI 2025',
+    statusLabel: 'Live · YUKTI 2025',
     kind: 'Hardware + ML',
-    live: null,
+    group: 'Hardware',
+    live: 'https://zensleep.daniwork300.workers.dev',
     repo: 'https://github.com/itsdaniel-exe/ZenSleep',
     body: [
-      "A sleep tracker that works out how stressed you are from how you slept. An ESP32 band with a motion sensor and a heart-rate sensor logs the night, a scoring engine turns that into a stress reading, and the dashboard gives you a few things to actually do about it rather than just a number.",
-      'It started as our YUKTI Innovation Challenge submission under the AICTE Productization Fellowship, and this repo is the build of that pitch — scoring pipeline, API, dashboard and firmware. You can simulate a night of data server-side, so the whole thing runs without the hardware in front of you.',
+      'A sleep tracker that works out how stressed you are from how you slept. A band with a motion sensor and a heart-rate sensor logs the night, a scoring engine turns 30-second epochs into a 0–100 score across duration, continuity, latency and heart-rate stability, and you get a Low/Moderate/High stress reading out of it.',
+      "The scoring is entirely rule-based and explainable — I didn't want a number nobody could argue with. You set your own target hours rather than being told 7–9 is correct, and the calendar colours every night by stress so a bad week is visible at a glance.",
+      'Accounts are real: PBKDF2-hashed passwords, signed session cookies, per-account data. The band pairs with a revocable API key so it never needs to know a user id. There is a sample-data button, so you can poke at the whole dashboard without owning the hardware.',
     ],
-    stack: ['ESP32', 'MPU6050', 'MAX30102', 'Arduino', 'Node.js', 'Express', 'React', 'Vite'],
+    stack: ['ESP32', 'MPU6050', 'MAX30102', 'React', 'Vite', 'Cloudflare Workers', 'Hono', 'D1'],
   },
   {
     id: 'astrogator',
@@ -101,6 +104,7 @@ export const projects = [
     status: 'done',
     statusLabel: 'Built at a NASA hackathon',
     kind: 'Hackathon',
+    group: 'Hackathon',
     live: null,
     repo: null,
     body: [
@@ -117,6 +121,7 @@ export const projects = [
     status: 'done',
     statusLabel: 'Finished',
     kind: 'College project',
+    group: 'College',
     live: null,
     repo: 'https://github.com/itsdaniel-exe/AetherLogger',
     body: [
@@ -132,6 +137,7 @@ export const projects = [
     status: 'done',
     statusLabel: 'Finished',
     kind: 'College project',
+    group: 'College',
     live: null,
     repo: 'https://github.com/itsdaniel-exe/BloodLink',
     body: [
@@ -147,6 +153,7 @@ export const projects = [
     status: 'shelved',
     statusLabel: 'Built, never adopted',
     kind: 'College tool',
+    group: 'College',
     live: null,
     repo: 'https://github.com/itsdaniel-exe/Qupid',
     body: [

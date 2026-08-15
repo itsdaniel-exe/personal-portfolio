@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import ScrollProgress from './ScrollProgress'
 
 const SECTIONS = [
   { href: '#work', label: 'Work' },
@@ -16,12 +17,14 @@ export default function Nav() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  // `relative` so the scroll-progress hairline can pin to the nav's bottom edge.
   return (
     <header
-      className={`sticky top-0 z-50 bg-paper/90 backdrop-blur-sm transition-colors duration-300 ${
+      className={`sticky top-0 z-50 relative bg-paper/85 backdrop-blur-md transition-colors duration-300 ${
         scrolled ? 'border-b border-rule' : 'border-b border-transparent'
       }`}
     >
+      <ScrollProgress />
       <nav
         aria-label="Primary"
         className="mx-auto flex max-w-5xl items-baseline justify-between gap-4 px-5 py-4 sm:px-8"

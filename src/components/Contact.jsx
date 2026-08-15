@@ -1,4 +1,5 @@
 import Reveal from './Reveal'
+import Magnetic from './Magnetic'
 import { links } from '../data/projects'
 
 /*
@@ -45,15 +46,17 @@ export default function Contact() {
                 >
                   <dt className="t-label w-20 shrink-0">{c.label}</dt>
                   <dd>
-                    <a
-                      href={c.href}
-                      className="link"
-                      {...(c.external
-                        ? { target: '_blank', rel: 'noreferrer noopener' }
-                        : {})}
-                    >
-                      {c.text}
-                    </a>
+                    <Magnetic strength={0.28}>
+                      <a
+                        href={c.href}
+                        className="link"
+                        {...(c.external
+                          ? { target: '_blank', rel: 'noreferrer noopener' }
+                          : {})}
+                      >
+                        {c.text}
+                      </a>
+                    </Magnetic>
                   </dd>
                 </div>
               ))}
