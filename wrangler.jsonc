@@ -1,0 +1,11 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "daniel-portfolio",
+  "compatibility_date": "2026-08-14",
+
+  // Pure static site — no Worker code, so no "main" entry is needed.
+  // `npm run build` writes to dist/, and that's what gets uploaded.
+  "assets": {
+    "directory": "./dist"
+  }
+}

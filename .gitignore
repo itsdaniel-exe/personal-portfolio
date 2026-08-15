@@ -29,6 +29,11 @@ build
 *.sln
 *.sw?
 
+# Cloudflare / Wrangler
+.wrangler
+.dev.vars
+.dev.vars.*
+
 # Environment Variables (Critical for Security)
 .env
 .env.test

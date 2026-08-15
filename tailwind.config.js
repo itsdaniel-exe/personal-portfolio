@@ -1,24 +1,29 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
+    // "Ledger" palette. Pale green-grey paper, forest-black ink, one ultramarine
+    // accent. Neutrals are biased toward the accent's cool side so nothing reads
+    // as a default grey.
     extend: {
       colors: {
-        background: '#050505', // Deep charcoal, almost black
-        surface: '#121212',
-        primary: '#CCFF00', // Acid Lime
-        secondary: '#B026FF', // Electric Violet
+        paper: '#E9EAE3',
+        raised: '#F3F4EE',
+        ink: '#161A14',
+        muted: '#5B6156',
+        faint: '#8A9084',
+        rule: '#CBCEC2',
+        accent: '#2B2BD1',
+        wash: '#DEDEF6',
+        live: '#2E7D52',
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        display: ['Space Grotesk', 'sans-serif'], // New display font
+        display: ['"Bricolage Grotesque"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        body: ['Newsreader', 'Georgia', 'Times New Roman', 'serif'],
       },
-      backgroundImage: {
-        'noise': "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E\")",
-      }
+      maxWidth: {
+        prose: '34rem',
+      },
     },
   },
   plugins: [],

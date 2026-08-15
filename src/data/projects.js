@@ -1,131 +1,181 @@
+/*
+  The ledger.
+
+  `body` is an array of paragraphs. `status` drives the dot colour in Entry.jsx
+  ('building' | 'done' | 'shelved').
+
+  Repo links and stacks below were taken from the public repos on
+  github.com/itsdaniel-exe and match what's actually in them. Sentinel AI and
+  Astrogator have no public repo yet — Entry.jsx renders no link when `repo` is
+  null, so nothing here is a dead link.
+*/
+
+/*
+  REMMATE DOMAIN SWAP-IN POINT
+  ----------------------------
+  remmate.io isn't registered yet — it returned NXDOMAIN from both Google and
+  Cloudflare DNS on 14 Aug 2026, so linking it would have shipped a dead link on
+  the one project you most want people to click.
+
+  Flip this to true once the domain is live. The "Visit remmate.io" button, the
+  hero link and the contact row all switch on from here — nothing else to change.
+*/
+export const REMMATE_LIVE = false
+export const REMMATE_URL = 'https://remmate.io'
+export const REMMATE_REPO = 'https://github.com/itsdaniel-exe/Remmate.io'
 
 export const projects = [
-    {
-        id: 1,
-        title: "remmate.io",
-        shortDescription: "Intelligent Personal Reminder & Note-Taking App",
-        description: "Remmate is a cutting-edge personal productivity application designed to streamline task management and note-taking through the power of Artificial Intelligence. Unlike traditional reminder apps, Remmate leverages Google's Gemini AI to understand natural language, allowing users to create complex reminders simply by typing as they speak.",
-        category: "01 / WEB APP",
-        tags: ["React", "TypeScript", "Firebase", "Gemini AI", "Tailwind CSS"],
-        color: "bg-blue-900",
-        image: "/remmate-logo.png",
-        links: {
-            demo: "#",
-            github: "#"
-        },
-        features: [
-            {
-                title: "AI-Powered Reminder Creation",
-                description: "Stop fiddling with date pickers. Just type 'Remind me to call John next Tuesday at 3 PM' and Gemini AI parses it automatically."
-            },
-            {
-                title: "Intelligent Note Editor",
-                description: "Transform rough ideas into polished notes with grammar fixes, summarization, and AI writing assistance."
-            },
-            {
-                title: "Secure & Real-time Cloud Sync",
-                description: "Powered by Firebase Auth & Firestore for instant syncing across devices with offline PWA support."
-            }
-        ],
-        techStack: {
-            frontend: ["React 18", "TypeScript", "Vite", "Tailwind CSS", "Framer Motion"],
-            backend: ["Firebase Auth", "Firebase Firestore", "Google Generative AI (Gemini)"]
-        },
-        gallery: [
-            // Add screenshots here later
-        ]
-    },
-    {
-        id: 2,
-        title: "ZenSleep",
-        shortDescription: "AI-Powered Sleep Analysis Ecosystem with IoT Integration.",
-        description: "ZenSleep is a comprehensive sleep health platform combining IoT wearable hardware with Generative AI to provide real-time sleep monitoring and personalized improvement insights. Unlike traditional trackers, it uses Google's Gemini AI to interpret sleep patterns and offer medical-grade advice.",
-        category: "02 / WEB APP",
-        tags: ["React", "IoT", "Gemini AI", "AWS", "ESP32"],
-        color: "bg-indigo-900",
-        // image: "/zensleep-logo.png",
-        links: { demo: "#", github: "#" },
-        features: [
-            {
-                title: "AI-Driven Sleep Coaching",
-                description: "Analyzes sleep logs to generate Sleep Health Scores and actionable behavioral recommendations using Gemini 1.5 Flash."
-            },
-            {
-                title: "IoT Motion Tracking",
-                description: "Real-time micro-movement and sudden wake detection using ESP32 and MPU6050 sensors."
-            },
-            {
-                title: "Cloud & Serverless Architecture",
-                description: "AWS Lambda infrastructure with Firebase Firestore for real-time data ingestion and storage."
-            }
-        ],
-        techStack: {
-            frontend: ["React", "Vite", "TailwindCSS", "Framer Motion", "Recharts"],
-            backend: ["Firebase Auth", "Firestore", "AWS Lambda", "API Gateway"],
-            hardware: ["ESP32", "Arduino Nano", "MPU6050", "WebSerial API"],
-            ai: ["Google Gemini 1.5 Flash"]
-        }
-    },
-    {
-        id: 3,
-        title: "AI Proctoring System",
-        shortDescription: "IEEE standard-compliant Chrome Extension for automated exam monitoring.",
-        description: "A professional-grade automated proctoring solution designed to maintain exam integrity. Unlike basic tools, this system implements IEEE standards and runs a real YOLOv8 machine learning model directly in the browser for high-performance, private, and real-time detection of unauthorized objects.",
-        category: "03 / EXTENSION",
-        tags: ["Chrome Extension", "YOLOv8", "TensorFlow.js", "Firebase", "Web Security"],
-        color: "bg-emerald-900",
-        links: { demo: "#", github: "#" },
-        features: [
-            {
-                title: "Real-Time AI Detection",
-                description: "Runs YOLOv8n via ONNX.js in Web Workers for 60fps detection of banned objects (phones, people) locally."
-            },
-            {
-                title: "Enterprise Security",
-                description: "Implements AES-GCM 256-bit encryption for sensitive data and tamper-proof audit logging."
-            },
-            {
-                title: "Live Proctor Dashboard",
-                description: "Monitoring interface for invigilators to view real-time status and violation snapshots."
-            }
-        ],
-        techStack: {
-            core: ["Chrome Extension API (Manifest V3)", "JavaScript ES6+", "HTML5/CSS3"],
-            ai: ["YOLOv8", "ONNX Runtime Web", "Web Workers"],
-            backend: ["Firebase Auth", "Firestore", "Cloudinary"],
-            security: ["Web Crypto API (AES-GCM)", "SHA-256 Hashing"]
-        }
-    },
-    {
-        id: 4,
-        title: "Exploratory Projects",
-        shortDescription: "A collection of innovative prototypes in AI, AR, and Cybersecurity.",
-        description: "A diverse collection of advanced prototypes exploring the boundaries of Healthcare AI, E-commerce AR, and Cybersecurity. This series demonstrates practical implementations of complex concepts, from multimodal AI health assistants to virtual try-on systems and malware analysis tools.",
-        category: "04 / R&D",
-        tags: ["Generative AI", "Augmented Reality", "Cybersecurity", "Python", "Streamlit"],
-        color: "bg-rose-900",
-        links: { demo: "#", github: "#" },
-        features: [
-            {
-                title: "AI Virtual Doctor",
-                description: "Multimodal health assistant powered by Gemini 2.0 Flash. analyzes symptoms and images (e.g., rashes) to provide structured preliminary assessments and care recommendations."
-            },
-            {
-                title: "Virtual Dressing Room",
-                description: "Web-based AR shopping experience allowing users to virtually 'try on' clothes by overlaying digital garments onto uploaded photos."
-            },
-            {
-                title: "Advanced Malware Detection",
-                description: "Cybersecurity system for safe handling and static/dynamic analysis of live malware samples from 'theZoo' repository."
-            }
-        ],
-        techStack: {
-            ai: ["Google Gemini 2.0 Flash", "Pillow (PIL)"],
-            web: ["Flask (Python)", "Streamlit", "HTML5/JS"],
-            security: ["Live Malware Analysis", "Static/Dynamic Analysis Tools"],
-            data: ["theZoo Database", "JSON Inventory"]
-        }
-    }
-];
+  {
+    id: 'remmate',
+    title: 'Remmate',
+    year: 'Now',
+    status: 'building',
+    statusLabel: 'In active development',
+    kind: 'Product',
+    live: REMMATE_LIVE ? REMMATE_URL : null,
+    repo: REMMATE_REPO,
+    /*
+      remmate-mark.png is a tight, square, 136px crop generated from the
+      full-size master in brand/remmate-logo.png (which has ~2/3 transparent
+      padding and weighs 221 KB — far too heavy to paint a 34px mark).
 
-export const categories = ["ALL", "WEB APP", "AI TOOL", "EXTENSION", "R&D", "MOBILE", "IOT"];
+      NOTE (Daniel): the master is still the OLD blue/purple logo. Drop the
+      current cyan/magenta artwork in as brand/remmate-logo.png, then
+      regenerate the mark — see "Updating the Remmate mark" in the README.
+    */
+    logo: '/remmate-mark.png',
+    featured: true,
+    body: [
+      "A reminders, notes and calendar app. I built it because I'd bounced off every other one, and I wanted the thing I'd actually open every morning. It's aimed at the same shelf as Todoist and TickTick — not at a portfolio page.",
+      "The constraint I set myself is that it runs entirely on free tiers. No paid infrastructure anywhere. That's quietly driven most of the architecture: background jobs sit on Cloudflare Workers with cron triggers rather than Firebase Functions, purely because Functions would have pushed me onto a paid plan. Storage is split between Firestore and Supabase for the same reason.",
+      'One codebase ships as a web app, a PWA and a Windows desktop build. Notes with AI assists, one-off and recurring reminders, AI quick-add, the month/week/day calendar views and Google Calendar export all work today. Push notifications are written and waiting on a deploy.',
+    ],
+    stack: [
+      'React',
+      'TypeScript',
+      'Vite',
+      'Tailwind',
+      'Electron',
+      'Firebase',
+      'Supabase',
+      'Cloudflare Workers',
+      'Gemini 2.5 Flash',
+    ],
+    next: ['Telegram capture', 'Email-to-reminder', 'AI day scheduling'],
+  },
+  {
+    id: 'sentinel',
+    title: 'Sentinel AI',
+    year: 'Final year',
+    status: 'building',
+    statusLabel: 'In progress',
+    kind: 'College project',
+    live: null,
+    repo: null,
+    body: [
+      // Deliberately short: it's still under development, so there's no finished
+      // claim to make yet. Worth expanding once there's something concrete to say.
+      "My final year project. An AI-assisted security platform that pulls guidance and the networking and routing side into one place, instead of spreading them across separate tools. It's still under development, so I'll leave it at that for now.",
+    ],
+    stack: [],
+  },
+  {
+    id: 'zensleep',
+    title: 'ZenSleep',
+    year: '2025',
+    status: 'building',
+    statusLabel: 'Built for YUKTI 2025',
+    kind: 'Hardware + ML',
+    live: null,
+    repo: 'https://github.com/itsdaniel-exe/ZenSleep',
+    body: [
+      "A sleep tracker that works out how stressed you are from how you slept. An ESP32 band with a motion sensor and a heart-rate sensor logs the night, a scoring engine turns that into a stress reading, and the dashboard gives you a few things to actually do about it rather than just a number.",
+      'It started as our YUKTI Innovation Challenge submission under the AICTE Productization Fellowship, and this repo is the build of that pitch — scoring pipeline, API, dashboard and firmware. You can simulate a night of data server-side, so the whole thing runs without the hardware in front of you.',
+    ],
+    stack: ['ESP32', 'MPU6050', 'MAX30102', 'Arduino', 'Node.js', 'Express', 'React', 'Vite'],
+  },
+  {
+    id: 'astrogator',
+    title: 'Astrogator',
+    year: '2025',
+    status: 'done',
+    statusLabel: 'Built at a NASA hackathon',
+    kind: 'Hackathon',
+    live: null,
+    repo: null,
+    body: [
+      "A space mission planning tool, built with a team over a NASA hackathon. It pulls NASA's public datasets in and puts trajectories and spacecraft navigation into an interactive 3D view, so a mission becomes something you can poke at rather than a table you read.",
+      'Python models on the back end handle the analysis and the recommendations, so the visualisation is showing you real computed output rather than a pretty animation.',
+    ],
+    // Team size and placement left out on purpose — not a gap to fill in.
+    stack: ['React', 'TypeScript', 'Three.js', 'FastAPI', 'NASA APIs', 'Supabase', 'Vercel'],
+  },
+  {
+    id: 'aether-logger',
+    title: 'Aether Logger',
+    year: 'Third year',
+    status: 'done',
+    statusLabel: 'Finished',
+    kind: 'College project',
+    live: null,
+    repo: 'https://github.com/itsdaniel-exe/AetherLogger',
+    body: [
+      'A Chrome extension for proctoring online exams. A YOLOv8 model runs inside the browser through ONNX Runtime and flags phones, books and extra people in the camera feed — the detection happens on-device, so no video gets shipped off anywhere to be analysed.',
+      'Alongside that it watches the browser-side things that matter during an exam: tab switches, dev-tools shortcuts, flagged URLs. Examiners get a live dashboard with every examinee and a running violation feed; examinees just enter a code to join. State syncs through Firebase.',
+    ],
+    stack: ['Manifest V3', 'YOLOv8', 'ONNX Runtime', 'Firebase', 'JavaScript'],
+  },
+  {
+    id: 'bloodlink',
+    title: 'BloodLink',
+    year: 'Second year',
+    status: 'done',
+    statusLabel: 'Finished',
+    kind: 'College project',
+    live: null,
+    repo: 'https://github.com/itsdaniel-exe/BloodLink',
+    body: [
+      'Someone posts an urgent blood request, and a logistic regression model scores every eligible donor on how likely they actually are to respond — donation history, past behaviour, and straight-line distance from the hospital — then alerts the top of that list first, instead of notifying everybody and hoping.',
+      "There's a hospital console for raising requests and managing inventory, real push notifications through Firebase Cloud Messaging rather than a mock log, and a dashboard showing blood group and urgency breakdowns. It runs on free tiers, so it costs nothing sitting idle.",
+    ],
+    stack: ['React', 'Vite', 'Node.js', 'Express', 'Firebase Auth', 'FCM', 'Tailwind', 'Recharts'],
+  },
+  {
+    id: 'qupid',
+    title: 'Qupid',
+    year: '—',
+    status: 'shelved',
+    statusLabel: 'Built, never adopted',
+    kind: 'College tool',
+    live: null,
+    repo: 'https://github.com/itsdaniel-exe/Qupid',
+    body: [
+      "An AI question paper generator for the college. It's done, and it works. The college never approved it, so nobody has ever used it. That happens.",
+    ],
+    stack: ['Python'],
+  },
+]
+
+export const unfinished = [
+  {
+    id: 'plaro',
+    title: 'Plaro',
+    body: 'An educational social media app. I lost the thread on it about halfway through and started doubting anyone would actually use it, so it stopped.',
+  },
+  {
+    id: 'disaster',
+    title: 'A disaster management web app',
+    body: 'Started it with some juniors, got a decent way in, and it quietly fizzled out. No dramatic reason.',
+  },
+]
+
+export const links = {
+  email: 'daniwork300@gmail.com',
+  github: 'https://github.com/itsdaniel-exe',
+  githubHandle: 'itsdaniel-exe',
+  linkedin: 'https://www.linkedin.com/in/daniel-rupaan-kalery-f-47786821b',
+  linkedinHandle: 'daniel-rupaan-kalery-f',
+  // Falls back to the repo until the domain is live, so this is never a dead link.
+  remmate: REMMATE_LIVE ? REMMATE_URL : REMMATE_REPO,
+  remmateLabel: REMMATE_LIVE ? 'remmate.io' : 'Source — domain coming soon',
+}

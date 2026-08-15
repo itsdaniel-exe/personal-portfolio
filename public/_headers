@@ -1,0 +1,13 @@
+# Response headers for every path. Same three Remmate sets in its firebase.json,
+# kept consistent across projects.
+#
+# Note: this file is served from public/, so Vite copies it into dist/ on build.
+# It is not itself served as an asset.
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+
+# Hashed build assets are immutable — cache them hard.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
