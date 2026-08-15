@@ -70,7 +70,30 @@ export default function Entry({ project }) {
         </span>
       </MotionDiv>
 
+      {/*
+        The checkbox is the conceit: this page is a task list, and `done` means
+        the thing actually shipped. It's decorative-but-true, so it's aria-hidden
+        and the real state is already in statusLabel above.
+      */}
       <MotionDiv variants={reveal} className="mt-5 flex items-center gap-3">
+        <span
+          aria-hidden="true"
+          className={`grid h-6 w-6 shrink-0 place-items-center rounded-md border-2 transition-colors duration-300 ${
+            status === 'done'
+              ? 'border-accent bg-accent text-white'
+              : status === 'building'
+                ? 'border-live text-live'
+                : 'border-rule text-transparent'
+          }`}
+        >
+          {status === 'done' ? (
+            <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="3">
+              <path d="M3 8.5l3.2 3.2L13 5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          ) : status === 'building' ? (
+            <span className="h-2 w-2 rounded-full bg-live" />
+          ) : null}
+        </span>
         {logo && (
           <img
             src={logo}

@@ -1,4 +1,6 @@
 import Module from './Module'
+import Note from './Note'
+import NothingButton from './NothingButton'
 
 export default function About() {
   return (
@@ -23,10 +25,17 @@ export default function About() {
               necessary.
             </p>
           </div>
+
+          <div className="mt-7 border-t border-rule pt-6">
+            <NothingButton />
+          </div>
         </Module>
 
         <Module tag="how.md" tilt delay={0.06}>
           <span className="t-label">How I pick things</span>
+          <Note className="ml-2" rotate={2}>
+            not a process
+          </Note>
           <ol className="mt-5 space-y-5">
             {[
               ['01', 'Something annoys me', 'Usually daily, usually small.'],

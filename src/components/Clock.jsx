@@ -15,18 +15,18 @@ const FMT = new Intl.DateTimeFormat('en-GB', {
   hour12: false,
 })
 
+const HOUR_FMT = new Intl.DateTimeFormat('en-GB', {
+  timeZone: 'Asia/Kolkata',
+  hour: '2-digit',
+  hour12: false,
+})
+
 function nowParts() {
-  const hour = Number(
-    new Intl.DateTimeFormat('en-GB', {
-      timeZone: 'Asia/Kolkata',
-      hour: '2-digit',
-      hour12: false,
-    }).format(new Date())
-  )
-  return { time: FMT.format(new Date()), hour }
+  const d = new Date()
+  return { time: FMT.format(d), hour: Number(HOUR_FMT.format(d)) }
 }
 
-export default function Clock() {
+export default function Clock({ compact = false }) {
   const [{ time, hour }, setNow] = useState(nowParts)
 
   useEffect(() => {
@@ -34,12 +34,20 @@ export default function Clock() {
     return () => clearInterval(id)
   }, [])
 
-  const asleep = hour >= 1 && hour < 8
-  const note = asleep
-    ? "Which means I'm asleep. I'll get to it."
-    : hour >= 8 && hour < 18
-      ? 'Probably at my desk.'
-      : 'Usually when I actually build things.'
+  if (compact) {
+    return (
+      <span className="font-mono text-[10px] font-bold tabular-nums tracking-[0.1em] text-muted">
+        {time} IST
+      </span>
+    )
+  }
+
+  const note =
+    hour >= 1 && hour < 8
+      ? "Which means I'm asleep. I'll get to it."
+      : hour >= 8 && hour < 18
+        ? 'Probably at my desk.'
+        : 'Usually when I actually build things.'
 
   return (
     <div className="flex h-full flex-col justify-between gap-4">

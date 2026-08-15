@@ -27,6 +27,9 @@ export default {
         display: ['"Bricolage Grotesque"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         body: ['Newsreader', 'Georgia', 'serif'],
         mono: ['"Space Mono"', 'ui-monospace', 'monospace'],
+        // Handwritten, for margin notes only — the equivalent of the reference's
+        // sticky-note annotations. Never for anything you have to actually read.
+        hand: ['"Shantell Sans"', 'ui-rounded', 'cursive'],
       },
       maxWidth: {
         prose: '34rem',
